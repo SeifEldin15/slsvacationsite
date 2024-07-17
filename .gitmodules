@@ -1,0 +1,6 @@
+[submodule "safari"]
+	path = safari
+	url = https://github.com/SeifEldin15/slsvacationsite.git
+[submodule "slsvacationsite"]
+	path = slsvacationsite
+	url = https://github.com/SeifEldin15/slsvacationsite.git
