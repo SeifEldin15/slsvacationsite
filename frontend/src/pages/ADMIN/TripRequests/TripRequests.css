@@ -1,0 +1,46 @@
+.TripDashboard {
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    overflow-x: auto;
+  }
+  
+  .TripDashboard table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .TripDashboard th, .TripDashboard  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .TripDashboard th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .TripDashboard tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .TripDashboard  button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .TripDashboard  button:hover {
+    background-color: #d32f2f;
+  }

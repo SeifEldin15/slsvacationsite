@@ -1,0 +1,123 @@
+/* ContactUs.css */
+
+.schedule-call-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 150px auto 0;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.FormHeader-Container {
+  flex: 1;
+  max-width: 450px;
+  margin-right: 40px;
+}
+
+.ContactUs {
+  flex: 1;
+  max-width: 550px;
+}
+
+.form-header {
+  color: #4a4a4a; /* header-color */
+  font-size: 35px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.Traveler, .Lookingforward {
+  margin: 35px 0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.form-header p {
+  color: #333; /* text-color */
+}
+
+.form-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px;
+  border: 1px solid #ddd; /* border-color */
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3498db; /* primary-color */
+}
+
+.submit-button {
+  background-color: #3498db; /* primary-color */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #2980b9;
+}
+
+@media only screen and (max-width: 1024px) {
+  .schedule-call-form {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .FormHeader-Container,
+  .ContactUs {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
+
+  .form-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .schedule-call-form {
+    margin-top: 100px;
+  }
+
+  .form-header {
+    font-size: 28px;
+  }
+
+  .Traveler, .Lookingforward {
+    font-size: 16px;
+  }
+}

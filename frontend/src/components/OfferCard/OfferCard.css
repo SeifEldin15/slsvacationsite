@@ -1,0 +1,149 @@
+.OfferCard {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(233, 233, 233);
+    position: relative;
+    border-radius: 9px;
+    overflow: hidden;
+    margin-bottom:30px;
+}
+
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.OfferCard img {
+    margin-top: 0px !important;
+    object-fit: cover;
+    border-radius: 9px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 100%;
+    height: 225px;
+    transition: transform 0.3s ease;
+}
+
+.hover-overlay {
+    position: absolute;
+    top: 0;
+    WIDTH:100%;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    height:51%;
+}
+
+ .get-offer-btn{
+    background-color:var(--main-color);
+    border-radius: 8px;
+    width:190px;
+    padding:12px;
+    border:0px;
+    color:white;
+    font-size:16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+.get-offer-btn i{
+    margin-left:11px;
+    margin-top: 0px;
+}
+.get-offer-btn:hover{
+    background-color: #4D82F7;
+}
+
+.OfferCard:hover .hover-overlay {
+    opacity: 1;
+    display: flex;
+    align-items: center;
+}
+
+.OfferCard:hover img {
+    transform: scale(1.1);
+}
+
+
+.OfferCard a{
+    color: #0e2e66;
+    font-weight: 600;
+}
+.OfferCards-Container{
+    display: grid;
+    gap: 1rem;
+    width:100%;
+
+    grid-template-columns: repeat(4, 1fr);
+}
+.card-info{
+    font-weight: 600;
+    padding:15px;
+}
+.trip-time{
+    margin-top:10px;
+    font-size: 14px;
+    color: #63687A;
+}
+.location{
+    margin-top:15px;
+    border-radius: 4px;
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.125rem;
+    padding: 3px 8px;
+    border:0px;
+    background-color: #0e2e66;
+    color: white;
+    font-weight: 600;
+}
+.card-price{
+    font-weight: 600;
+    margin-top:30px;
+    font-size:15px;
+    color: #0e2e66;
+}
+.card-people{
+    font-size: 16px;
+    color: #63687A;
+    margin-bottom: 5px;
+}
+@media (max-width: 1000px) {
+    .OfferCards-Container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+}
+@media (max-width:600px) {
+    .OfferCards-Container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+}
+@media (max-width:400px) {
+    .OfferCards-Container{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    
+}
+.card-people{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+.card-people button{
+    font-size: 18px;
+    border:0px;
+    background-color: transparent;
+}
+
+.wishlisted{
+    color: rgb(218, 0, 0);
+
+}

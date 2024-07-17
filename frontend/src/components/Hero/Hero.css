@@ -1,0 +1,43 @@
+.hero {
+    position: relative;
+    color: white;
+    height:500px;
+    display: flex;
+}
+
+.HeroImgBackground {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.hero-section{
+    height: 100%;
+    width:100%;
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-header {
+
+    color:rgb(255, 255, 255);
+    font-weight: 1000;
+    font-size:4rem;
+}
+.hero-header-p{
+
+    margin-top:10px;
+    color:rgb(255, 255, 255);
+    font-size:1.1rem;
+}
+
+.planeicon{
+    margin-bottom:-10px;
+    color:rgb(255, 255, 255);
+    width:80px;
+    margin-left:-10px;
+}

@@ -1,0 +1,130 @@
+.footer {
+  background-color: var(--header-color);
+  color: white;
+  display: flex;
+  gap:60px;
+  padding-top:40px;  font-weight: 600;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 20px;
+}
+
+
+
+.footer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer li {
+  font-size: 14px;
+  margin-left:3px;
+  margin-bottom: 8px;
+}
+
+.footer .dropdown {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  background-color: white;
+  border: none;
+}
+
+.app-store-badge {
+  height: 40px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.payment-methods img {
+  height: 20px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+ .appimg{
+   max-width: 150px;
+   margin-bottom:8px;
+   margin-top:8px;
+ }
+
+.social-icons {
+  display: flex;
+}
+
+.social-icons img {
+  height: 24px;
+  margin-left: 10px;
+}
+.Footer-Header{
+  margin-bottom: 10px;
+  font-size: 16px;
+
+}
+/* 
+ */
+
+ .footer-bottom {
+  background-color: var(--header-color);
+  color: white;
+  padding-bottom: 40px;
+}
+
+.footer-bottom .content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-bottom .text {
+  margin: 0;
+  font-size: 14px;
+}
+
+ .social-icons {
+  display: flex;
+  gap: 25px;  font-size: 22px;
+
+}
+
+.footer-bottom .icon {
+  cursor: pointer;
+}
+.footer select{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+  }
+  
+  .footer-section {
+    width: 100%;
+  }
+  .footer {
+   flex-direction: column;
+  }
+  .footer-bottom .content {
+    display: block;
+  }
+  .social-icons {
+    margin-top:30px;
+  }
+}

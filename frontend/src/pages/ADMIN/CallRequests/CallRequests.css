@@ -1,0 +1,42 @@
+.CallRequestsDashboard {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.CallRequestsDashboard table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.CallRequestsDashboard th, .CallRequestsDashboard td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.CallRequestsDashboard th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.CallRequestsDashboard tr:nth-child(even) {
+  background-color: #f9f9f9;
+} .CallRequestsDashboard button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 2px 2px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.CallRequestsDashboard button:hover {
+  background-color: #d32f2f;
+}

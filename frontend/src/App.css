@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+  padding:0;
+  margin:0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body{
+  font-family:  "system-ui";
+    overflow-x: hidden;
+}
+
+li{
+   text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  text-decoration: none;
+  cursor:pointer;
+  transition: 0.3s;
+}
+a:hover{
+  color:var(--main-color-ligher);
+}
+:root {
+  --main-color:#026dc5;
+  --main-color-ligher:#4D82F7;
+  --header-color:rgb(0, 99, 181);
+  --main-color-darker:rgb(0, 61, 111);
+}
+/* 
+#ADD8E6 - Light Blue
+#87CEFA - Light Sky Blue
+#B0E0E6 - Powder Blue
+#AFEEEE - Pale Turquoise
+#E0FFFF - Light Cyan */
+
+h1, h2 {
+  color:rgb(0, 0, 0) !important;
+  font-weight: 1000 !important;
+  font-size:50px !important;
+}
+h3{
+  font-size:26px !important;
+  color: var(--header-color) !important;
+}
+.Container{
+  padding-right:11%;
+  padding-left:11%;
+}
+.Container2{
+  margin-top:115px;
+}
+.line{
+  margin-top:10px;
+  width:90px;
+  border: 2.5px solid var(--header-color);
+  border-radius: 111111125px;
+}
+.Offer-Header{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.overlay{
+  width:100%;
+  height:100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  z-index: 2;
+}
+@media (max-width: 750px) {
+  h1, h2 {
+    color:rgb(0, 0, 0) !important;
+    font-weight: 1000 !important;
+    font-size:30px !important;
+    text-align: center;
+  }
+
+}
