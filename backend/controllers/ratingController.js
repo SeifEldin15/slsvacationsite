@@ -33,7 +33,7 @@ const addReview = (req, res) => {
   
       // Update average rating for the offer
       const updateRatingQuery = `
-        UPDATE offers
+        UPDATE offer
         SET avg_rating = (SELECT AVG(rating) FROM reviews WHERE offer_id = ?)
         WHERE id = ?;
       `;
@@ -51,21 +51,38 @@ const addReview = (req, res) => {
 
 
 
-const getReviews = (req, res) => {
+  const getReviews = (req, res) => {
     const { offerId } = req.params;
-    console.log(offerId);
-    const query = 'SELECT * FROM reviews WHERE offer_id = ?';
-    db.query(query, [offerId], (err, results) => {
+    const { page = 1, limit = 5 } = req.query;
+    const offset = (page - 1) * limit;
+  
+    const query = 'SELECT * FROM reviews WHERE offer_id = ? LIMIT ? OFFSET ?';
+    db.query(query, [offerId, parseInt(limit), parseInt(offset)], (err, results) => {
       if (err) {
         console.error('Error fetching reviews:', err);
         return res.status(500).json({ message: 'Internal server error' });
       }
   
-      res.status(200).json(results);
+      // Get total count of reviews
+      const countQuery = 'SELECT COUNT(*) as total FROM reviews WHERE offer_id = ?';
+      db.query(countQuery, [offerId], (countErr, countResults) => {
+        if (countErr) {
+          console.error('Error fetching review count:', countErr);
+          return res.status(500).json({ message: 'Internal server error' });
+        }
+  
+        const totalReviews = countResults[0].total;
+        const totalPages = Math.ceil(totalReviews / limit);
+  
+        res.status(200).json({
+          reviews: results,
+          currentPage: parseInt(page),
+          totalPages: totalPages,
+          totalReviews: totalReviews
+        });
+      });
     });
   };
-
-
  
   const getReviewSummary = (req, res) => {
     const { offerId } = req.params;

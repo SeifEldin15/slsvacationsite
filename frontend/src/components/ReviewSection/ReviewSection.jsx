@@ -1,48 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { toast, Toaster } from 'react-hot-toast';
 import './ReviewSection.css';
 
 const ReviewSection = () => {
   const { productId: offerId } = useParams();
-    console.log(offerId);
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({ rating: 0, reviewText: '' });
-  useEffect(() => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const fetchReviews = (page) => {
     console.log('Fetching reviews for offerId:', offerId);
-    axios.get(`http://localhost:5000/getReviews/${offerId}`)
+    axios.get(`http://localhost:5000/getReviews/${offerId}?page=${page}`)
       .then(response => {
         console.log('Received reviews:', response.data);
-        setReviews(response.data);
+        setReviews(prevReviews => [...prevReviews, ...response.data.reviews]);
+        setCurrentPage(response.data.currentPage);
+        setTotalPages(response.data.totalPages);
       })
       .catch(error => {
         console.error('Error fetching reviews:', error);
+        toast.error('Failed to fetch reviews. Please try again later.');
       });
+  };
+
+  useEffect(() => {
+    fetchReviews(1);
   }, [offerId]);
-  
+
   const handleReviewSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/addReview', {
-      offerId,
-      userId: 1,
-      rating: newReview.rating,
-      reviewText: newReview.reviewText
-    })
-      .then(response => {
-        console.log(response.data.message);
-        setReviews([...reviews, { ...newReview, review_date: new Date() }]);
-        setNewReview({ rating: 0, reviewText: '' });
-      })
-      .catch(error => {
-        console.error('Error submitting review:', error);
-      });
+    if (newReview.rating === 0) {
+      toast.error('Please select a star rating before submitting.');
+      return;
+    }
+
+    toast.promise(
+      axios.post('http://localhost:5000/addReview', {
+        offerId,
+        userId: 1,
+        rating: newReview.rating,
+        reviewText: newReview.reviewText
+      }),
+      {
+        loading: 'Submitting review...',
+        success: (response) => {
+          setReviews([{ ...newReview, review_date: new Date() }, ...reviews]);
+          setNewReview({ rating: 0, reviewText: '' });
+          return 'Review submitted successfully!';
+        },
+        error: 'Failed to submit review. Please try again.'
+      }
+    );
+  };
+
+  const handleSeeMoreReviews = () => {
+    if (currentPage < totalPages) {
+      fetchReviews(currentPage + 1);
+    }
   };
 
   return (
     <div className="review-section-container">
+      <Toaster position="top-center" reverseOrder={false} />
+      
       <div className="review-section">
-        <div className="filter-section">
+      <div className="filter-section">
           <p className='Bystarrating'>By star rating</p>
           <div className="star-filter">
             <label>
@@ -50,7 +76,7 @@ const ReviewSection = () => {
             </label>
             {[5, 4, 3, 2, 1].map(stars => (
               <label key={stars}>
-                <input type="checkbox" className='custom-checkbox' /> {stars} stars 
+                <input type="checkbox" className='custom-checkbox' /> {stars} stars
                 <span className="stars">{'★'.repeat(stars)}{'☆'.repeat(5 - stars)}</span>
               </label>
             ))}
@@ -59,7 +85,7 @@ const ReviewSection = () => {
         <div className="reviews-offer-container">
           {reviews.map((review) => (
             <div className="review" key={review.id}>
-              <div className="review-header">
+               <div className="review-header">
                 <span className="avatar">G</span>
                 <div className="review-info">
                   <div className='SLStraveler'>User {review.username}</div>
@@ -72,18 +98,27 @@ const ReviewSection = () => {
           ))}
         </div>
       </div>
-      {/* <form onSubmit={handleReviewSubmit} className="review-form">
+      
+      {currentPage < totalPages && (
+        <button className="see-more" onClick={handleSeeMoreReviews}>
+          See more reviews
+        </button>
+      )}
+
+      <form onSubmit={handleReviewSubmit} className="review-form">
         <div className="rating-input">
-          {[1, 2, 3, 4, 5].map(stars => (
-            <label key={stars}>
+          {[5, 4, 3, 2, 1].map(stars => (
+            <React.Fragment key={stars}>
               <input
                 type="radio"
+                id={`star${stars}`}
                 name="rating"
                 value={stars}
                 checked={newReview.rating === stars}
                 onChange={() => setNewReview({ ...newReview, rating: stars })}
-              /> {stars} stars
-            </label>
+              />
+              <label htmlFor={`star${stars}`}>★</label>
+            </React.Fragment>
           ))}
         </div>
         <textarea
@@ -94,7 +129,6 @@ const ReviewSection = () => {
         />
         <button type="submit">Submit Review</button>
       </form>
-      <button className="see-more">See more reviews</button> */}
     </div>
   );
 };

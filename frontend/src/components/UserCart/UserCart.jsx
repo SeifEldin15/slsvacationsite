@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserCart.css';
+import { PayPalButtons } from "@paypal/react-paypal-js";
+
 axios.defaults.withCredentials = true;
 
 const CartItem = ({ item, onQuantityChange, onDelete }) => (
@@ -27,6 +29,7 @@ const CartItem = ({ item, onQuantityChange, onDelete }) => (
 
 const UserCart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -51,6 +54,7 @@ const UserCart = () => {
       console.error('Error updating quantity:', error);
     }
   };
+
   const handleDelete = async (productId) => {
     try {
       await axios.delete(`http://localhost:5000/deleteCartItem/${productId}`, {
@@ -61,7 +65,6 @@ const UserCart = () => {
       console.error('Error deleting item:', error);
     }
   };
-  
 
   const subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price) * item.quantity, 0);
 
@@ -78,8 +81,51 @@ const UserCart = () => {
       ))}
       <div className="cart-summary">
         <p>Subtotal ({cartItems.length} items): $ {subtotal.toFixed(2)}</p>
-        <button className="proceed-to-buy">Proceed to Buy</button>
+        {subtotal > 0 ? (
+          <PayPalButtons
+            style={{ layout: "vertical" }}
+            createOrder={(data, actions) => {
+              return fetch('http://localhost:5000/api/orders', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  cart: cartItems,
+                }),
+              })
+              .then(response => response.json())
+              .then(order => order.id);
+            }}
+            onApprove={(data, actions) => {
+              return fetch(`http://localhost:5000/api/orders/${data.orderID}/capture`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              })
+              .then(response => response.json())
+              .then(orderData => {
+                if (orderData.error) {
+                  throw new Error(orderData.error);
+                }
+                const payerName = orderData.payer && orderData.payer.name 
+                  ? orderData.payer.name.given_name 
+                  : 'customer';
+                setMessage(`Transaction completed by ${payerName}`);
+                setCartItems([]);  // Clear the cart
+              })
+              .catch(error => {
+                console.error('Payment error:', error);
+                setMessage(`Error: ${error.message}`);
+              });
+            }}
+          />
+        ) : (
+          <p>Add items to your cart to enable PayPal checkout</p>
+        )}
       </div>
+      {message && <p className="message">{message}</p>}
     </div>
   );
 };

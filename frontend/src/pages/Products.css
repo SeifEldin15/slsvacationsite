@@ -105,13 +105,17 @@
   align-items: center;
   padding:5px;
  }
- 
+
  /* Responsive adjustments */
  @media (max-width: 768px) {
    .sights-grid {
      flex-wrap: wrap;
    }
-   
+   .AwesomeDestinations{
+    padding-left: 2%;
+    padding-right:2%;
+
+   }
    .sight-card {
      width: calc(50% - 7.5px);
    }

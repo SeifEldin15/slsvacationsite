@@ -1,5 +1,7 @@
 import mysql from 'mysql';
 import * as config from '../config.js'; // Adjust path as necessary
+import bcrypt from 'bcrypt';
+import jwt  from 'jsonwebtoken';
 
 const db = mysql.createConnection({
   host: config.DB_HOST,
@@ -41,4 +43,44 @@ const deleteCallRequest = (req, res) => {
   });
 };
 
-export { getCallRequests, deleteCallRequest };
+
+const adminLogin = (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Please provide username and password' });
+  }
+
+
+  bcrypt.hash(password, 10, (err, hashedPassword) => {
+    if (err) {
+      console.error('Error hashing password:', err);
+    } 
+  });
+
+  db.query('SELECT * FROM admin WHERE username = ?', [username], async (error, results) => {
+    if (error) {
+      throw error;
+    }
+
+    if (results.length === 0) {
+      return res.status(401).json({ message: 'Username or password is incorrect' });
+    }
+
+    const user = results[0];
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Username or password is incorrect' });
+    }
+
+    const token = jwt.sign({ id: user.id, username: user.username }, 'yourjwtsecret', { expiresIn: '1h' });
+
+    res.json({ token });
+  });
+};
+
+
+
+export { getCallRequests, deleteCallRequest, adminLogin };

@@ -9,6 +9,7 @@ import Paypal from './pages/Paypal';
 import TripBookingPage from './pages/TripBooking';
 import CallRequests from './pages/ADMIN/CallRequests/CallRequests';
 import TripRequests from './pages/ADMIN/TripRequests/TripRequests';
+import Login from './pages/ADMIN/Login/Login';
 
 import OurOffers from './pages/OurOffers';
 import Offer from './pages/Offer';
@@ -29,6 +30,7 @@ function App() {
     <Routes>
     <Route path="/CallRequests" element={<CallRequests />} />
     <Route path="/TripRequests" element={<TripRequests />} />
+    <Route path="/Login" element={<Login />} />
 
         <Route path="/" element={<Home />} />
         <Route path="/Payment" element={<Payment />} />

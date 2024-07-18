@@ -96,7 +96,7 @@ const AwesomeDestinations = () => {
 
 const App = () => {
   return (
-    <div>
+    <div className='AwesomeDestinations'>
       <Navbar />
       <TopSights />
       <AwesomeDestinations />
